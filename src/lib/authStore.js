@@ -7,10 +7,20 @@ const useAuthStore = create((set) => ({
 
   setAuth: (token, user) => {
     if (typeof window !== "undefined") {
-      localStorage.setItem("ee_token", token);
-      localStorage.setItem("ee_user",  JSON.stringify(user));
+      // Store user without requiring token
+      localStorage.setItem("ee_user", JSON.stringify(user));
+      if (token) {
+        localStorage.setItem("ee_token", token);
+      }
     }
     set({ token, user });
+  },
+
+  setUser: (user) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("ee_user", JSON.stringify(user));
+    }
+    set({ user });
   },
 
   logout: () => {
@@ -25,7 +35,7 @@ const useAuthStore = create((set) => ({
     if (typeof window === "undefined") return;
     const token = localStorage.getItem("ee_token");
     const user  = localStorage.getItem("ee_user");
-    if (token && user) {
+    if (user) {
       set({ token, user: JSON.parse(user) });
     }
   },

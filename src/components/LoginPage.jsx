@@ -7,7 +7,7 @@ import { Spinner } from "@/components/ui";
 
 const DEMO = {
   student: { email: "arjun@demo.school",  pass: "demo123" },
-  teacher: { email: "priya@demo.school",  pass: "demo123" },
+  teacher: { email: "teacher@demo.school", pass: "demo123" },
 };
 
 export default function LoginPage() {
@@ -48,8 +48,13 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const { data } = await api.post("/api/auth/login", { email, password });
-      setAuth(data.token, data.user);
-      router.push(data.user.role === "student" ? "/student/tutor" : "/teacher/dashboard");
+      // Handle response without token
+      if (data.user) {
+        setAuth(null, data.user); // No token needed
+        router.push(data.user.role === "student" ? "/student/tutor" : "/teacher/dashboard");
+      } else {
+        setError("Login failed. Please try again.");
+      }
     } catch (err) {
       setError(err.response?.data?.error || "Login failed. Please try again.");
     } finally {
@@ -105,7 +110,7 @@ export default function LoginPage() {
           <p className="text-blue-400 text-xs leading-relaxed">
             Demo credentials — Password: <span className="font-bold">demo123</span><br/>
             Student: <span className="font-mono">arjun@demo.school</span><br/>
-            Teacher: <span className="font-mono">priya@demo.school</span>
+            Teacher: <span className="font-mono">teacher@demo.school</span>
           </p>
         </div>
       </div>

@@ -14,14 +14,14 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Auto-logout on 401
+// Auto-logout on 401 - but don't reload page
 api.interceptors.response.use(
   (res) => res,
   (err) => {
     if (err.response?.status === 401 && typeof window !== "undefined") {
       localStorage.removeItem("ee_token");
       localStorage.removeItem("ee_user");
-      window.location.href = "/";
+      // Don't reload page - let components handle auth state
     }
     return Promise.reject(err);
   }
