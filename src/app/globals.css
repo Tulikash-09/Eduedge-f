@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    @apply bg-surface text-slate-200 h-full;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  #__next { @apply h-full; }
+}
+
+@layer components {
+  .font-display { font-family: 'Raleway', sans-serif; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar        { @apply w-1.5 h-1.5; }
+  ::-webkit-scrollbar-track  { background: transparent; }
+  ::-webkit-scrollbar-thumb  { @apply bg-slate-700 rounded-full; }
+
+  /* Card */
+  .ee-card {
+    @apply bg-card rounded-xl border border-white/[0.07];
+  }
+
+  /* Input */
+  .ee-input {
+    @apply w-full bg-surface border border-white/10 rounded-lg px-4 py-3
+           text-slate-200 text-sm placeholder:text-slate-500
+           focus:outline-none focus:border-brand transition-colors;
+  }
+
+  /* Button variants */
+  .btn-brand {
+    @apply bg-gradient-to-r from-brand to-violet-600 text-white font-bold
+           rounded-lg px-5 py-3 text-sm font-display transition-opacity
+           hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+  .btn-outline {
+    @apply border border-brand text-brand bg-transparent rounded-lg px-4 py-2
+           text-sm font-semibold hover:bg-brand/10 transition-colors;
+  }
+  .btn-ghost {
+    @apply text-slate-400 hover:text-slate-200 hover:bg-white/5 rounded-lg
+           px-3 py-2 text-sm transition-colors;
+  }
+
+  /* Pill badges */
+  .pill {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold;
+  }
+  .pill-blue   { @apply bg-brand/15 text-blue-400; }
+  .pill-green  { @apply bg-emerald-500/15 text-emerald-400; }
+  .pill-red    { @apply bg-red-500/15 text-red-400; }
+  .pill-amber  { @apply bg-amber-500/15 text-amber-400; }
+  .pill-violet { @apply bg-violet-500/15 text-violet-400; }
+
+  /* Nav item */
+  .nav-item {
+    @apply flex items-center gap-2.5 w-full px-3 py-2.5 rounded-lg text-sm
+           text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-all cursor-pointer;
+  }
+  .nav-item.active {
+    @apply bg-sidebar-active border border-blue-800/60 text-white font-semibold;
+  }
+
+  /* Animation */
+  .page-enter { animation: fadeUp 0.2s ease; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Typing dots */
+  .dot-pulse { animation: dotPulse 1.4s infinite; }
+  @keyframes dotPulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.2; }
+  }
+}
