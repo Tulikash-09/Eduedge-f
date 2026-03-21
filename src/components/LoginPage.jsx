@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import useAuthStore from "@/lib/authStore";
 import api from "@/lib/api";
 import { Spinner } from "@/components/ui";
+import { BookIcon, ChalkboardIcon } from "@/components/icons";
 
 const DEMO = {
   student: { email: "arjun@demo.school",  pass: "demo123" },
@@ -64,46 +65,65 @@ export default function LoginPage() {
 
   // ── Role picker ──────────────────────────────────────────────────────────
   if (!role) return (
-    <div className="min-h-screen w-full flex items-center justify-center p-6"
-         style={{ background: "linear-gradient(145deg,#0d1220 0%,#162040 100%)" }}>
-      <div className="w-full max-w-sm">
-        {/* Brand */}
-        <div className="text-center mb-10">
-          <div className="text-5xl mb-3">🎓</div>
-          <h1 className="font-display text-4xl font-black text-slate-100 tracking-tight">EduEdge</h1>
-          <p className="text-slate-500 text-sm mt-2">AI-Powered Learning Platform for Indian Schools</p>
-          <p className="text-slate-400 text-xs mt-4 italic">"The Education ecosystem your student deserves"</p>
+    <div className="min-h-screen flex bg-navy-900">
+      {/* Left Panel */}
+      <div className="flex-1 flex items-center justify-center p-12">
+        <div className="max-w-md">
+          <div className="text-center mb-12">
+            <h1 className="font-display text-5xl font-bold text-white mb-4">EduEdge</h1>
+            <p className="text-navy-200 text-lg mb-2">AI-Powered Learning Platform for Indian Schools</p>
+            <p className="text-navy-300 text-sm italic">"The Education ecosystem your student deserves"</p>
+            <p className="text-navy-400 text-xs mt-6">CBSE & ICSE Board Aligned</p>
+          </div>
         </div>
-
-        {/* Role cards */}
-        <p className="text-slate-400 text-sm text-center mb-4">Sign in as</p>
-        <div className="grid grid-cols-2 gap-4 mb-6">
-          {[
-            { role: "student", icon: "📚", title: "Student",  desc: "AI Tutor & Study Tools",    color: "#5B7FFF" },
-            { role: "teacher", icon: "🏫", title: "Teacher",  desc: "Dashboard & Class Tools",   color: "#10B981" },
-          ].map((r) => (
+      </div>
+      
+      {/* Right Panel */}
+      <div className="flex-1 bg-surface flex items-center justify-center p-12 relative overflow-hidden">
+        {/* Geometric Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(30,58,111,0.3) 35px, rgba(30,58,111,0.3) 70px),
+                             repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(30,58,111,0.2) 35px, rgba(30,58,111,0.2) 70px)`,
+            backgroundSize: '140px 140px'
+          }}></div>
+        </div>
+        
+        <div className="relative z-10 w-full max-w-sm">
+          <h2 className="font-display text-2xl font-semibold text-navy-900 mb-2 text-center">Select Your Role</h2>
+          <p className="text-navy-600 text-sm text-center mb-8">Choose how you'd like to access EduEdge</p>
+          
+          <div className="space-y-4">
             <button
-              key={r.role}
-              onClick={() => selectRole(r.role)}
-              className="p-5 rounded-xl border transition-all duration-200 text-center group"
-              style={{
-                background: "rgba(255,255,255,0.04)",
-                borderColor: "rgba(255,255,255,0.08)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = `${r.color}1a`;
-                e.currentTarget.style.borderColor = r.color;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(255,255,255,0.04)";
-                e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
-              }}
+              onClick={() => selectRole("student")}
+              className="w-full p-6 rounded-2xl border-2 border-navy-200 bg-card hover:border-green-500 hover:shadow-lg transition-all duration-200 text-left group"
             >
-              <div className="text-3xl mb-3">{r.icon}</div>
-              <p className="font-display font-bold text-slate-200 text-base mb-1">{r.title}</p>
-              <p className="text-slate-500 text-xs">{r.desc}</p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center group-hover:bg-green-200 transition-colors">
+                  <BookIcon className="w-6 h-6 text-green-700" />
+                </div>
+                <div>
+                  <h3 className="font-display font-semibold text-navy-900 text-lg mb-1">Student</h3>
+                  <p className="text-navy-600 text-sm">AI Tutor & Study Tools</p>
+                </div>
+              </div>
             </button>
-          ))}
+            
+            <button
+              onClick={() => selectRole("teacher")}
+              className="w-full p-6 rounded-2xl border-2 border-navy-200 bg-card hover:border-green-500 hover:shadow-lg transition-all duration-200 text-left group"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center group-hover:bg-green-200 transition-colors">
+                  <ChalkboardIcon className="w-6 h-6 text-green-700" />
+                </div>
+                <div>
+                  <h3 className="font-display font-semibold text-navy-900 text-lg mb-1">Teacher</h3>
+                  <p className="text-navy-600 text-sm">Dashboard & Class Tools</p>
+                </div>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -111,43 +131,42 @@ export default function LoginPage() {
 
   // ── Login form ───────────────────────────────────────────────────────────
   const isStudent = role === "student";
-  const accentColor = isStudent ? "#5B7FFF" : "#10B981";
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center p-6"
-         style={{ background: "linear-gradient(145deg,#0d1220 0%,#162040 100%)" }}>
-      <div className="w-full max-w-sm">
+    <div className="min-h-screen bg-surface flex items-center justify-center p-6">
+      <div className="w-full max-w-md">
         <form
           onSubmit={handleLogin}
-          className="rounded-2xl border border-white/10 p-8"
-          style={{ background: "rgba(255,255,255,0.05)", backdropFilter: "blur(20px)" }}
+          className="bg-card rounded-2xl border border-navy-200 p-8 shadow-sm"
         >
           {/* Back */}
           <button
             type="button"
             onClick={() => { setRole(null); setError(""); }}
-            className="text-slate-500 hover:text-slate-300 text-sm mb-6 flex items-center gap-1 transition-colors"
+            className="text-navy-500 hover:text-navy-700 text-sm mb-6 flex items-center gap-1 transition-colors"
           >
             ← Back
           </button>
 
           {/* Header */}
-          <div className="text-center mb-7">
-            <div className="text-4xl mb-3">{isStudent ? "📚" : "🏫"}</div>
-            <h2 className="font-display text-2xl font-black text-slate-100">
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+              {isStudent ? <BookIcon className="w-8 h-8 text-green-700" /> : <ChalkboardIcon className="w-8 h-8 text-green-700" />}
+            </div>
+            <h2 className="font-display text-2xl font-semibold text-navy-900 mb-2">
               {isStudent ? "Student Login" : "Teacher Login"}
             </h2>
-            <p className="text-slate-500 text-sm mt-1">
-              Use demo credentials below
+            <p className="text-navy-600 text-sm">
+              Enter your credentials to continue
             </p>
           </div>
 
           {/* Fields */}
-          <div className="space-y-4 mb-6">
+          <div className="space-y-5 mb-6">
             <div>
-              <label className="block text-slate-400 text-xs mb-1.5 font-medium">Email Address</label>
+              <label className="block text-navy-700 text-sm font-medium mb-2">Email Address</label>
               <input
-                className="ee-input"
+                className="w-full bg-white border border-navy-200 rounded-lg px-4 py-3 text-navy-900 text-sm placeholder:text-navy-400 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -157,9 +176,9 @@ export default function LoginPage() {
               />
             </div>
             <div>
-              <label className="block text-slate-400 text-xs mb-1.5 font-medium">Password</label>
+              <label className="block text-navy-700 text-sm font-medium mb-2">Password</label>
               <input
-                className="ee-input"
+                className="w-full bg-white border border-navy-200 rounded-lg px-4 py-3 text-navy-900 text-sm placeholder:text-navy-400 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -171,15 +190,15 @@ export default function LoginPage() {
 
           {/* Error */}
           {error && (
-            <div className="mb-4 px-4 py-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+            <div className="mb-6 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm">
               {error}
             </div>
           )}
 
           {/* Submit */}
-          <button type="submit" disabled={loading} className="btn-brand w-full flex items-center justify-center gap-2">
+          <button type="submit" disabled={loading} className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg px-5 py-3 text-sm font-display transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2">
             {loading ? <Spinner size={16} /> : null}
-            {loading ? "Signing in..." : "Sign In →"}
+            {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
       </div>
