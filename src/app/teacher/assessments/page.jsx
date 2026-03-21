@@ -31,20 +31,20 @@ export default function AssessmentsPage() {
     : 0;
 
   return (
-    <div className="p-7">
+    <div className="p-3 sm:p-7">
       <PageHeader title="Generate Assessment" subtitle="Preview as a student">
         <span className="pill pill-violet">AI-Generated</span>
       </PageHeader>
 
       {/* Topic selector */}
-      <div className="ee-card p-5 mb-6">
+      <div className="ee-card p-3 sm:p-5 mb-4 sm:mb-6">
         <p className="text-[#4b5563] text-sm font-semibold mb-3">Select Topic</p>
-        <div className="flex gap-3 flex-wrap mb-4">
+        <div className="flex gap-2 sm:gap-3 flex-wrap mb-4">
           {TOPICS.map((t) => (
             <button
               key={t}
               onClick={() => { setTopic(t); setQuestions(null); setSelected({}); setSubmitted(false); }}
-              className={`px-4 py-2 rounded-lg text-sm font-semibold border transition-all ${
+              className={`px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-sm font-semibold border transition-all ${
                 topic === t
                   ? "bg-[#1a3c6e] border-none text-white"
                   : "border-[#D1D5DB] text-[#1c1c1a] bg-white hover:bg-[#eff6ff]"
@@ -57,7 +57,7 @@ export default function AssessmentsPage() {
         <button
           onClick={generate}
           disabled={loading}
-          className="btn-brand flex items-center gap-2"
+          className="btn-brand flex items-center gap-2 w-full sm:w-auto justify-center"
         >
           {loading ? <Spinner size={15} /> : "✨"}
           {loading ? "Generating…" : "Generate 5 Questions"}
@@ -69,14 +69,14 @@ export default function AssessmentsPage() {
         <>
           <div className="flex flex-col gap-4 mb-5">
             {questions.map((q, qi) => (
-              <div key={qi} className="ee-card p-5">
+              <div key={qi} className="ee-card p-3 sm:p-5">
                 <div className="flex gap-3 items-start">
                   <div className="w-7 h-7 rounded-full bg-brand/15 flex items-center justify-center text-brand text-xs font-bold flex-shrink-0 mt-0.5">
                     Q{qi + 1}
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <p className="text-[#1c1c1a] font-medium text-[15px] mb-3">{q.q}</p>
-                    <div className="grid grid-cols-2 gap-2.5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       {q.opts.map((opt, oi) => {
                         const isSel    = selected[qi] === oi;
                         const isRight  = submitted && oi === q.ans;
@@ -115,11 +115,11 @@ export default function AssessmentsPage() {
           </div>
 
           {!submitted ? (
-            <div className="flex gap-3">
-              <button onClick={() => setSubmitted(true)} className="btn-brand">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button onClick={() => setSubmitted(true)} className="btn-brand w-full sm:w-auto">
                 Preview as Student →
               </button>
-              <button className="btn-outline">Share with Class 10-A</button>
+              <button className="btn-outline w-full sm:w-auto">Share with Class 10-A</button>
             </div>
           ) : (
             <div className="p-5 rounded-xl border border-emerald-500/25 bg-emerald-500/10">

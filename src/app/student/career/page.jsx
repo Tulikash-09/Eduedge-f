@@ -46,7 +46,7 @@ const CAREERS = [
 
 export default function CareerPage() {
   return (
-    <div className="p-7">
+    <div className="p-3 sm:p-7">
       <PageHeader
         title="Career Intelligence"
         subtitle="AI-matched career paths · Commerce Stream · Based on Class 10 profile"
@@ -54,7 +54,7 @@ export default function CareerPage() {
         <span className="pill pill-violet">Static Demo</span>
       </PageHeader>
 
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
         {CAREERS.map((c, i) => (
           <div
             key={i}
@@ -63,11 +63,11 @@ export default function CareerPage() {
           >
             {/* Title row */}
             <div className="flex items-start justify-between">
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">{c.icon}</span>
-                <div>
+              <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                <span className="text-xl sm:text-2xl">{c.icon}</span>
+                <div className="min-w-0">
                   <p className="font-display font-bold text-[#1c1c1a] text-sm">{c.title}</p>
-                  <p className="text-slate-500 text-xs mt-0.5">{c.duration}</p>
+                  <p className="text-slate-500 text-xs mt-0.5 truncate">{c.duration}</p>
                 </div>
               </div>
               <div className="text-right flex-shrink-0 ml-2">
@@ -83,11 +83,11 @@ export default function CareerPage() {
             <p className="text-[#374151] text-xs leading-relaxed">{c.desc}</p>
 
             {/* Skills */}
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1 sm:gap-1.5">
               {c.skills.map((s, j) => (
                 <span
                   key={j}
-                  className="text-[11px] px-2.5 py-0.5 rounded-full font-semibold"
+                  className="text-[10px] sm:text-[11px] px-2 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full font-semibold"
                   style={{ background: `${c.color}18`, color: c.color }}
                 >
                   {s}

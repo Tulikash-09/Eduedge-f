@@ -14,19 +14,19 @@ export default function FlashcardsPage() {
   const [done, setDone] = useState({});
 
   return (
-    <div className="p-7">
+    <div className="p-3 sm:p-7">
       <PageHeader
         title="Revision Flashcards"
         subtitle="CBSE Class 10 Science · Click any card to flip"
       />
 
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
         {CARDS.map((card, i) => (
           <div
             key={i}
             onClick={() => setFlipped((f) => ({ ...f, [i]: !f[i] }))}
             className="cursor-pointer"
-            style={{ perspective: "800px", height: 170 }}
+            style={{ perspective: "800px", height: 150, minHeight: 150 }}
           >
             <div
               style={{
@@ -73,8 +73,8 @@ export default function FlashcardsPage() {
       </div>
 
       {/* Spaced repetition callout */}
-      <div className="mt-5 ee-card p-4 flex items-center gap-4">
-        <span className="text-2xl">📅</span>
+      <div className="mt-4 sm:mt-5 ee-card p-3 sm:p-4 flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <span className="text-xl sm:text-2xl">📅</span>
         <div className="flex-1">
           <p className="font-display font-bold text-[#1c1c1a] text-sm">Spaced Repetition Schedule</p>
           <p className="text-[#374151] text-xs mt-1">

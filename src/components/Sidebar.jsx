@@ -1,5 +1,6 @@
 "use client";
 import { useRouter, usePathname } from "next/navigation";
+import { useState } from "react";
 import useAuthStore from "@/lib/authStore";
 import { Avatar } from "@/components/ui";
 
@@ -20,6 +21,7 @@ export default function Sidebar() {
   const router   = useRouter();
   const pathname = usePathname();
   const { user, logout } = useAuthStore();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   if (!user) return null;
 
@@ -36,10 +38,32 @@ export default function Sidebar() {
   };
 
   return (
-    <aside
-      className="w-52 flex flex-col flex-shrink-0 border-r border-white/[0.06]"
-      style={{ background: "#0D1220" }}
-    >
+    <>
+      {/* Mobile menu button */}
+      <button
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        className="lg:hidden fixed top-4 left-4 z-50 bg-sidebar border border-white/[0.1] rounded-lg p-3 text-white"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+      {/* Mobile overlay */}
+      {mobileMenuOpen && (
+        <div 
+          className="lg:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`fixed lg:static inset-y-0 left-0 z-40 w-52 flex flex-col flex-shrink-0 border-r border-white/[0.06] transform transition-transform duration-300 ${
+          mobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+        }`}
+        style={{ background: "#0D1220" }}
+      >
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-4 py-5">
         <span className="text-2xl">🎓</span>
@@ -94,6 +118,7 @@ export default function Sidebar() {
           Sign Out
         </button>
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }

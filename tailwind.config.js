@@ -59,6 +59,9 @@ module.exports = {
         sidebar: "#1e3a5f", // Navy dark
         "sidebar-active": "#344e66", // Navy medium
       },
+      screens: {
+        'xs': '475px',
+      },
     },
   },
   plugins: [],

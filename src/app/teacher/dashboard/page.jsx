@@ -23,19 +23,20 @@ export default function DashboardPage() {
   const totalFlagged = signals.reduce((s, t) => s + t.flagged, 0);
 
   return (
-    <div className="p-7">
+    <div className="p-3 sm:p-7">
       <PageHeader
         title="Struggle Signals"
         subtitle="Class 10-A · Science · AI-powered live monitoring"
       >
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-[#6b7280] text-xs">Live · updated 2 min ago</span>
+          <span className="text-[#6b7280] text-xs hidden sm:inline">Live · updated 2 min ago</span>
+          <span className="text-[#6b7280] text-xs sm:hidden">Live</span>
         </div>
       </PageHeader>
 
       {/* Metrics */}
-      <div className="grid grid-cols-4 gap-4 mb-7">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-5 sm:mb-7">
         <MetricCard icon="👥" label="Total Students" value={38}        color="#5B7FFF"  bg="rgba(91,127,255,0.12)" />
         <MetricCard icon="🔴" label="Need Help"      value={loading ? "…" : totalFlagged} color="#f87171"  bg="rgba(239,68,68,0.12)" />
         <MetricCard icon="🟡" label="At Risk"        value={8}         color="#fbbf24"  bg="rgba(245,158,11,0.12)" />
@@ -64,12 +65,12 @@ export default function DashboardPage() {
                 <div className="flex-1 min-w-0">
                   {/* Row 1: topic + level + trend */}
                   <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
                       <span className="text-[#1c1c1a] font-semibold text-sm">{item.topic}</span>
-                      <span className="text-slate-600 text-xs">{item.chapter}</span>
+                      <span className="text-slate-600 text-xs hidden sm:inline">{item.chapter}</span>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
-                      <span className="text-slate-500 text-xs">{item.flagged}/{item.total}</span>
+                      <span className="text-slate-500 text-xs hidden sm:inline">{item.flagged}/{item.total}</span>
                       <span
                         className="pill text-xs font-bold"
                         style={{ background: info.bg, color: info.color }}
@@ -92,18 +93,18 @@ export default function DashboardPage() {
                   </div>
 
                   {/* Student pills */}
-                  <div className="flex flex-wrap gap-1.5">
-                    {item.students.slice(0, 6).map((s, j) => (
+                  <div className="flex flex-wrap gap-1 sm:gap-1.5">
+                    {item.students.slice(0, 4).map((s, j) => (
                       <span
                         key={j}
-                        className="text-[11px] text-[#374151] bg-[#f3f4f6] border border-[#e5e7eb] px-2 py-0.5 rounded-full"
+                        className="text-[10px] sm:text-[11px] text-[#374151] bg-[#f3f4f6] border border-[#e5e7eb] px-2 py-0.5 rounded-full"
                       >
                         {s}
                       </span>
                     ))}
-                    {item.students.length > 6 && (
-                      <span className="text-[11px] text-brand font-semibold">
-                        +{item.students.length - 6} more
+                    {item.students.length > 4 && (
+                      <span className="text-[10px] sm:text-[11px] text-brand font-semibold">
+                        +{item.students.length - 4} more
                       </span>
                     )}
                   </div>

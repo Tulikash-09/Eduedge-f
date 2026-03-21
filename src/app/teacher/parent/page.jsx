@@ -10,7 +10,7 @@ const NOTIFICATIONS = [
 
 export default function ParentPage() {
   return (
-    <div className="p-7">
+    <div className="p-3 sm:p-7">
       <PageHeader
         title="Parent Digest"
         subtitle="Weekly WhatsApp report sent automatically every Sunday at 8:00 AM"
@@ -18,13 +18,14 @@ export default function ParentPage() {
         <span className="pill pill-amber">Demo Mockup</span>
       </PageHeader>
 
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* WhatsApp mockup */}
-        <div>
-          <p className="text-[11px] font-bold text-slate-600 uppercase tracking-widest mb-3">
-            What Parents Receive
-          </p>
-          <div className="rounded-2xl overflow-hidden shadow-2xl" style={{ background: "#E5DDD5", maxWidth: 340 }}>
+        <div className="flex justify-center lg:justify-start">
+          <div>
+            <p className="text-[11px] font-bold text-slate-600 uppercase tracking-widest mb-3">
+              What Parents Receive
+            </p>
+            <div className="rounded-2xl overflow-hidden shadow-2xl" style={{ background: "#E5DDD5", maxWidth: 340, width: "100%" }}>
             {/* WA header */}
             <div style={{ background: "#075E54" }} className="px-4 py-3 flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-emerald-700 flex items-center justify-center text-lg">🎓</div>
@@ -63,6 +64,7 @@ export default function ParentPage() {
             </div>
           </div>
         </div>
+        </div>
 
         {/* Right side */}
         <div className="flex flex-col gap-4">
@@ -72,13 +74,13 @@ export default function ParentPage() {
             </p>
             <div className="ee-card divide-y divide-white/[0.07]">
               {NOTIFICATIONS.map((n, i) => (
-                <div key={i} className="flex items-center justify-between px-5 py-4">
-                  <div>
+                <div key={i} className="flex items-center justify-between px-3 sm:px-5 py-3 sm:py-4">
+                  <div className="min-w-0">
                     <p className="text-[#1c1c1a] font-semibold text-sm">{n.label}</p>
                     <p className="text-[#4b5563] text-xs mt-0.5">{n.desc}</p>
                   </div>
                   <div
-                    className="relative flex-shrink-0 ml-4 rounded-full transition-colors"
+                    className="relative flex-shrink-0 ml-2 sm:ml-4 rounded-full transition-colors"
                     style={{ width: 40, height: 22, background: n.on ? "#10B981" : "#374151" }}
                   >
                     <div
@@ -92,7 +94,7 @@ export default function ParentPage() {
           </div>
 
           {/* Implementation note */}
-          <div className="rounded-xl border border-amber-500/20 bg-amber-500/8 p-4 flex gap-3">
+          <div className="rounded-xl border border-amber-500/20 bg-amber-500/8 p-3 sm:p-4 flex gap-3">
             <span className="text-lg flex-shrink-0">💡</span>
             <div>
               <p className="text-[#f5a623] font-semibold text-sm mb-1">Production Implementation</p>
@@ -105,17 +107,17 @@ export default function ParentPage() {
           </div>
 
           {/* Channel stats */}
-          <div className="ee-card p-4">
-            <p className="text-slate-500 text-xs font-semibold mb-3">Channel Stats (Demo)</p>
-            <div className="grid grid-cols-3 gap-3">
+          <div className="ee-card p-3 sm:p-4">
+            <p className="text-[#1c1c1a] text-xs font-semibold mb-3">Channel Stats (Demo)</p>
+            <div className="grid grid-cols-3 gap-2 sm:gap-3">
               {[
                 { val: "38", label: "Subscribers" },
                 { val: "94%", label: "Open Rate" },
                 { val: "12s", label: "Avg. Read Time" },
               ].map((s) => (
                 <div key={s.label} className="text-center">
-                  <p className="font-display font-black text-xl text-slate-100">{s.val}</p>
-                  <p className="text-slate-500 text-xs mt-0.5">{s.label}</p>
+                  <p className="font-display font-black text-lg sm:text-xl text-[#1c1c1a]">{s.val}</p>
+                  <p className="text-[#4b5563] text-xs mt-0.5">{s.label}</p>
                 </div>
               ))}
             </div>
