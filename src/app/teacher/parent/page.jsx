@@ -74,8 +74,8 @@ export default function ParentPage() {
               {NOTIFICATIONS.map((n, i) => (
                 <div key={i} className="flex items-center justify-between px-5 py-4">
                   <div>
-                    <p className="text-slate-200 font-semibold text-sm">{n.label}</p>
-                    <p className="text-slate-500 text-xs mt-0.5">{n.desc}</p>
+                    <p className="text-[#1c1c1a] font-semibold text-sm">{n.label}</p>
+                    <p className="text-[#4b5563] text-xs mt-0.5">{n.desc}</p>
                   </div>
                   <div
                     className="relative flex-shrink-0 ml-4 rounded-full transition-colors"
@@ -95,8 +95,8 @@ export default function ParentPage() {
           <div className="rounded-xl border border-amber-500/20 bg-amber-500/8 p-4 flex gap-3">
             <span className="text-lg flex-shrink-0">💡</span>
             <div>
-              <p className="text-amber-400 font-semibold text-sm mb-1">Production Implementation</p>
-              <p className="text-amber-600/80 text-xs leading-relaxed">
+              <p className="text-[#f5a623] font-semibold text-sm mb-1">Production Implementation</p>
+              <p className="text-[#374151] text-xs leading-relaxed">
                 Full pipeline uses MSG91 WhatsApp Business API with a weekly cron job
                 (Sunday 7:55 AM). This screen is a static demo mockup — the backend
                 integration is documented and ready for Phase 2.

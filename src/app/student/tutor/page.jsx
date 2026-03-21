@@ -90,7 +90,7 @@ export default function TutorPage() {
 
         {/* Hindi / English toggle */}
         <div className="flex items-center gap-3">
-          <span className={`text-sm font-semibold ${lang === "en" ? "text-slate-200" : "text-slate-500"}`}>EN</span>
+          <span className={`text-sm font-semibold ${lang === "en" ? "text-[#374151]" : "text-[#374151]"}`}>EN</span>
           <button
             onClick={toggleLang}
             className="relative w-11 h-6 rounded-full transition-colors duration-300 flex-shrink-0"
@@ -101,7 +101,7 @@ export default function TutorPage() {
               style={{ left: lang === "hi" ? "22px" : "2px" }}
             />
           </button>
-          <span className={`text-sm font-semibold ${lang === "hi" ? "text-slate-200" : "text-slate-500"}`}>हिं</span>
+          <span className={`text-sm font-semibold ${lang === "hi" ? "text-[#374151]" : "text-[#374151]"}`}>हिं</span>
           {lang === "hi" && (
             <span className="text-xs font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/25 px-2 py-0.5 rounded-md">
               हिंदी Active
@@ -123,7 +123,7 @@ export default function TutorPage() {
               className={`max-w-[72%] px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${
                 m.role === "user"
                   ? "bg-gradient-to-br from-brand to-violet-600 text-white rounded-2xl rounded-br-sm"
-                  : "ee-card text-slate-200 rounded-2xl rounded-bl-sm"
+                  : "ee-card text-[#1c1c1a] rounded-2xl rounded-bl-sm"
               }`}
             >
               {m.content}
@@ -151,8 +151,8 @@ export default function TutorPage() {
             <button
               key={s}
               onClick={() => setInput(s)}
-              className="px-3 py-1.5 rounded-full border border-white/10 bg-card text-xs text-blue-400
-                         font-medium hover:bg-brand/10 hover:border-brand/40 transition-all"
+              className="px-3 py-1.5 rounded-full border border-[#bfdbfe] bg-[#eff6ff] text-[#1a3c6e] text-xs
+                         font-medium hover:bg-[#1a3c6e]/10 hover:border-[#1a3c6e]/40 transition-all"
             >
               {s}
             </button>

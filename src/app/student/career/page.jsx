@@ -66,12 +66,12 @@ export default function CareerPage() {
               <div className="flex items-center gap-3">
                 <span className="text-2xl">{c.icon}</span>
                 <div>
-                  <p className="font-display font-bold text-slate-100 text-sm">{c.title}</p>
+                  <p className="font-display font-bold text-[#1c1c1a] text-sm">{c.title}</p>
                   <p className="text-slate-500 text-xs mt-0.5">{c.duration}</p>
                 </div>
               </div>
               <div className="text-right flex-shrink-0 ml-2">
-                <p className="font-display font-black text-xl" style={{ color: c.color }}>{c.match}%</p>
+                <p className="font-display font-bold text-xl" style={{ color: c.color }}>{c.match}%</p>
                 <p className="text-slate-600 text-[10px]">match</p>
               </div>
             </div>
@@ -80,7 +80,7 @@ export default function CareerPage() {
             <ProgressBar value={c.match} color={c.color} />
 
             {/* Description */}
-            <p className="text-slate-400 text-xs leading-relaxed">{c.desc}</p>
+            <p className="text-[#374151] text-xs leading-relaxed">{c.desc}</p>
 
             {/* Skills */}
             <div className="flex flex-wrap gap-1.5">
@@ -97,8 +97,8 @@ export default function CareerPage() {
 
             {/* Salary */}
             <div className="flex items-center justify-between bg-surface rounded-lg px-3 py-2 border border-white/[0.07]">
-              <span className="text-slate-500 text-xs">Average Salary</span>
-              <span className="font-display font-bold text-slate-200 text-sm">{c.salary}</span>
+              <span className="text-[#6b7280] text-xs">Average Salary</span>
+              <span className="font-display font-bold text-[#4b5563] text-sm">{c.salary}</span>
             </div>
           </div>
         ))}

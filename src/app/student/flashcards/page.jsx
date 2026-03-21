@@ -47,11 +47,11 @@ export default function FlashcardsPage() {
                   borderTop: `3px solid ${card.color}`,
                 }}
               >
-                <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: card.color }}>
+                <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: card.color === "#10B981" ? "#1e40af" : card.color === "#5B7FFF" ? "#1e40af" : card.color === "#F59E0B" ? "#92400e" : "#991b1b" }}>
                   Question
                 </span>
-                <p className="font-display font-bold text-slate-100 text-base leading-snug">{card.q}</p>
-                <span className="text-slate-600 text-xs">tap to reveal →</span>
+                <p className="font-display font-bold text-[#1c1c1a] text-base leading-snug">{card.q}</p>
+                <span className="text-[#4b5563] text-xs">tap to reveal →</span>
               </div>
 
               {/* Back */}
@@ -76,12 +76,12 @@ export default function FlashcardsPage() {
       <div className="mt-5 ee-card p-4 flex items-center gap-4">
         <span className="text-2xl">📅</span>
         <div className="flex-1">
-          <p className="font-display font-bold text-slate-200 text-sm">Spaced Repetition Schedule</p>
-          <p className="text-slate-500 text-xs mt-1">
+          <p className="font-display font-bold text-[#1c1c1a] text-sm">Spaced Repetition Schedule</p>
+          <p className="text-[#374151] text-xs mt-1">
             Next review: Photosynthesis in 2 days · Ohm&apos;s Law in 5 days · Reflex Arc in 7 days
           </p>
         </div>
-        <span className="pill pill-blue flex-shrink-0">SM-2 Algorithm</span>
+        <span className="pill pill-blue flex-shrink-0 text-[#374151]">SM-2 Algorithm</span>
       </div>
     </div>
   );
