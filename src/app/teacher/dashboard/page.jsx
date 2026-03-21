@@ -4,8 +4,8 @@ import api from "@/lib/api";
 import { MetricCard, ProgressBar, PageHeader } from "@/components/ui";
 
 const LEVEL_STYLE = {
-  high:   { bg: "rgba(239,68,68,0.12)",   color: "#f87171", label: "🔴 High" },
-  medium: { bg: "rgba(245,158,11,0.12)",  color: "#fbbf24", label: "🟡 Medium" },
+  high:   { bg: "rgba(239,68,68,0.12)",   color: "#991b1b", label: "🔴 High" },
+  medium: { bg: "rgba(245,158,11,0.12)",  color: "#92400e", label: "🟡 Medium" },
   low:    { bg: "rgba(16,185,129,0.12)",  color: "#34d399", label: "🟢 Low" },
 };
 
@@ -30,7 +30,7 @@ export default function DashboardPage() {
       >
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-slate-500 text-xs">Live · updated 2 min ago</span>
+          <span className="text-[#6b7280] text-xs">Live · updated 2 min ago</span>
         </div>
       </PageHeader>
 
@@ -45,8 +45,8 @@ export default function DashboardPage() {
       {/* Table */}
       <div className="ee-card overflow-hidden">
         <div className="px-5 py-4 border-b border-white/[0.07] flex items-center justify-between">
-          <h2 className="font-display font-bold text-slate-200 text-base">Topics by Struggle Level</h2>
-          <span className="text-slate-500 text-xs">Ranked by % flagging difficulty</span>
+          <h2 className="font-display font-bold text-[#1c1c1a] text-base">Topics by Struggle Level</h2>
+          <span className="text-[#6b7280] text-xs">Ranked by % flagging difficulty</span>
         </div>
 
         {loading ? (
@@ -65,7 +65,7 @@ export default function DashboardPage() {
                   {/* Row 1: topic + level + trend */}
                   <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
                     <div className="flex items-center gap-2">
-                      <span className="text-slate-200 font-semibold text-sm">{item.topic}</span>
+                      <span className="text-[#1c1c1a] font-semibold text-sm">{item.topic}</span>
                       <span className="text-slate-600 text-xs">{item.chapter}</span>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
@@ -96,7 +96,7 @@ export default function DashboardPage() {
                     {item.students.slice(0, 6).map((s, j) => (
                       <span
                         key={j}
-                        className="text-[11px] text-slate-400 bg-surface border border-white/[0.07] px-2 py-0.5 rounded-full"
+                        className="text-[11px] text-[#374151] bg-[#f3f4f6] border border-[#e5e7eb] px-2 py-0.5 rounded-full"
                       >
                         {s}
                       </span>

@@ -4,9 +4,9 @@ import api from "@/lib/api";
 import { Avatar, ProgressBar, PageHeader } from "@/components/ui";
 
 const STATUS = {
-  P: { bg: "rgba(16,185,129,0.12)",  color: "#34d399", label: "Present" },
-  A: { bg: "rgba(239,68,68,0.12)",   color: "#f87171", label: "Absent"  },
-  L: { bg: "rgba(245,158,11,0.12)",  color: "#fbbf24", label: "Late"    },
+  P: { bg: "rgba(16,185,129,0.12)",  color: "#166534", label: "Present" },
+  A: { bg: "rgba(239,68,68,0.12)",   color: "#991b1b", label: "Absent"  },
+  L: { bg: "rgba(245,158,11,0.12)",  color: "#92400e", label: "Late"    },
 };
 
 const AVATAR_COLORS = [
@@ -41,7 +41,7 @@ export default function AttendancePage() {
             ].map(([val, label, c, bg]) => (
               <div key={label} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg" style={{ background: bg }}>
                 <span className="font-display font-black text-lg" style={{ color: c }}>{val}</span>
-                <span className="text-xs font-semibold" style={{ color: c }}>{label}</span>
+                <span className="text-xs font-normal" style={{ color: c }}>{label}</span>
               </div>
             ))}
           </div>
@@ -54,9 +54,9 @@ export default function AttendancePage() {
         ) : (
           <table className="w-full">
             <thead>
-              <tr className="bg-slate-800/60 border-b border-white/[0.07]">
+              <tr className="bg-[#374151] border-b border-white/[0.07]">
                 {["Roll No.", "Student", "Today", "Monthly %", "Risk"].map((h) => (
-                  <th key={h} className="px-4 py-3 text-left text-[11px] font-bold text-slate-500 uppercase tracking-wide">
+                  <th key={h} className="px-4 py-3 text-left text-[11px] font-bold text-white uppercase tracking-wide">
                     {h}
                   </th>
                 ))}
@@ -71,11 +71,11 @@ export default function AttendancePage() {
 
                 return (
                   <tr key={i} className="border-b border-white/[0.05] hover:bg-white/[0.02] transition-colors">
-                    <td className="px-4 py-3 text-slate-500 text-xs">{s.roll}</td>
+                    <td className="px-4 py-3 text-[#1c1c1a] text-xs">{s.roll}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2.5">
                         <Avatar name={s.name} color={AVATAR_COLORS[i % AVATAR_COLORS.length]} size={28} />
-                        <span className="text-slate-200 text-sm font-medium">{s.name}</span>
+                        <span className="text-[#1c1c1a] text-sm font-medium">{s.name}</span>
                       </div>
                     </td>
                     <td className="px-4 py-3">
@@ -86,7 +86,7 @@ export default function AttendancePage() {
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2.5">
                         <ProgressBar value={s.monthly} color={riskColor} className="w-16" />
-                        <span className="text-slate-300 text-xs font-semibold min-w-[32px]">{s.monthly}%</span>
+                        <span className="font-semibold text-[#1c1c1a] text-xs min-w-[32px]">{s.monthly}%</span>
                       </div>
                     </td>
                     <td className="px-4 py-3">

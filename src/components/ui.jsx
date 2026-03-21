@@ -88,7 +88,7 @@ export function MetricCard({ icon, label, value, color = "#5B7FFF", bg = "rgba(9
         <span className="text-xl">{icon}</span>
         <span className="pill text-xs font-bold" style={{ background: bg, color }}>{label}</span>
       </div>
-      <p className="font-display text-3xl font-black text-slate-100">{value}</p>
+      <p className="font-display text-3xl font-black text-[#1c1c1a]">{value}</p>
     </div>
   );
 }
@@ -98,8 +98,8 @@ export function PageHeader({ title, subtitle, children }) {
   return (
     <div className="flex items-start justify-between mb-6 flex-wrap gap-3">
       <div>
-        <h1 className="font-display text-[22px] font-extrabold text-slate-100">{title}</h1>
-        {subtitle && <p className="text-slate-500 text-sm mt-1">{subtitle}</p>}
+        <h1 className="font-display text-[22px] font-extrabold text-[#1c1c1a]">{title}</h1>
+        {subtitle && <p className="text-[#4b5563] text-sm mt-1">{subtitle}</p>}
       </div>
       {children && <div className="flex items-center gap-2">{children}</div>}
     </div>

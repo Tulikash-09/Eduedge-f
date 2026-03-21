@@ -5,7 +5,7 @@
 
 @layer base {
   html, body {
-    @apply bg-surface text-slate-200 h-full;
+    @apply bg-surface text-primary h-full;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 400;
   }
@@ -38,7 +38,7 @@
 
   /* Button variants */
   .btn-brand {
-    @apply bg-amber-500 hover:bg-amber-600 text-white font-bold
+    @apply bg-amber-500 hover:bg-amber-600 text-navy-900 font-bold
            rounded-lg px-5 py-3 text-sm font-display transition-colors
            disabled:opacity-40 disabled:cursor-not-allowed;
   }
@@ -67,8 +67,48 @@
            text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-all cursor-pointer;
   }
   .nav-item.active {
-    @apply bg-amber-500/20 border border-amber-500/30 text-amber-400 font-semibold;
+    @apply bg-navy-500 text-white font-semibold;
   }
+
+  /* Utility classes */
+  .text-primary { color: #1c1c1a; }
+  .text-secondary { color: #4b5563; }
+  .text-primary-btn { color: #1c1c1a; }
+  .text-question { color: #1c1c1a; font-size: 15px; font-weight: 500; }
+  .text-navy { color: #1e3a5f; }
+  .text-surface-card { background-color: #fafaf9; }
+  .text-chip-active { background: #1e3a5f; color: white; border: none; }
+  .text-chip-inactive { background: white; color: #1c1c1a; border: 1px solid #d1d5db; }
+  .text-chip-hover { background: #2c3e50; }
+  .text-stat-label { color: #4b5563; }
+  .text-stat-number { color: #1c1c1a; }
+  .text-chapter { color: #1c1c1a; font-weight: 500; }
+  .text-student-name { color: #374151; }
+  .text-student-chip { color: #374151; background: #f3f4f6; border: #e5e7eb; }
+  .text-ranked { color: #6b7280; }
+  .text-badge-high { color: #991b1b; }
+  .text-badge-medium { color: #1c1c1a; }
+  .text-setting-title { color: #f5a623; font-weight: 600; }
+  .text-setting-desc { color: #374151; }
+  .text-salary { color: #4b5563; }
+  .text-skill-tag { color: #1e40af; background: #eff6ff; border: #bfdbfe; }
+  .text-match-percent { font-weight: 700; }
+  .text-attendance-header { color: white; background: #374151; }
+  .text-attendance-present { color: #166534; background: #dcfce7; }
+  .text-attendance-absent { color: #991b1b; background: #fee2e2; }
+  .text-attendance-late { color: #92400e; background: #fef3c7; }
+  .text-attendance-student-name { color: #1c1c1a; }
+  .text-attendance-chip { font-weight: 600; color: #1c1c1a; }
+  .text-tutor-bg { background: #f5f2ed; }
+  .text-suggested-question { color: #1a3c6e; background: #eff6ff; border: #bfdbfe; }
+  .text-lang-toggle { color: #374151; }
+  .text-flashcard-question { color: #1c1c1a; font-weight: 500; }
+  .text-flashcard-answer { color: #4b5563; }
+  .text-algorithm { color: #374151; }
+  .text-career-title { color: #1c1c1a; font-weight: 600; }
+  .text-career-desc { color: #374151; }
+  .text-average-salary { color: #6b7280; }
+  .text-salary-range { color: #4b5563; }
 
   /* Animation */
   .page-enter { animation: fadeUp 0.2s ease; }

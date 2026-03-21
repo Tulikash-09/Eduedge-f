@@ -32,13 +32,13 @@ export default function AssessmentsPage() {
 
   return (
     <div className="p-7">
-      <PageHeader title="Assessment Creator" subtitle="Generate a 5-question quiz · Preview as a student">
+      <PageHeader title="Generate Assessment" subtitle="Preview as a student">
         <span className="pill pill-violet">AI-Generated</span>
       </PageHeader>
 
       {/* Topic selector */}
       <div className="ee-card p-5 mb-6">
-        <p className="text-slate-400 text-sm font-semibold mb-3">Select Topic</p>
+        <p className="text-[#4b5563] text-sm font-semibold mb-3">Select Topic</p>
         <div className="flex gap-3 flex-wrap mb-4">
           {TOPICS.map((t) => (
             <button
@@ -46,8 +46,8 @@ export default function AssessmentsPage() {
               onClick={() => { setTopic(t); setQuestions(null); setSelected({}); setSubmitted(false); }}
               className={`px-4 py-2 rounded-lg text-sm font-semibold border transition-all ${
                 topic === t
-                  ? "bg-brand/15 border-brand text-brand"
-                  : "border-white/10 text-slate-400 hover:border-white/20 hover:text-slate-300"
+                  ? "bg-[#1a3c6e] border-none text-white"
+                  : "border-[#D1D5DB] text-[#1c1c1a] bg-white hover:bg-[#eff6ff]"
               }`}
             >
               {t}
@@ -75,7 +75,7 @@ export default function AssessmentsPage() {
                     Q{qi + 1}
                   </div>
                   <div className="flex-1">
-                    <p className="text-slate-200 font-semibold text-sm mb-3">{q.q}</p>
+                    <p className="text-[#1c1c1a] font-medium text-[15px] mb-3">{q.q}</p>
                     <div className="grid grid-cols-2 gap-2.5">
                       {q.opts.map((opt, oi) => {
                         const isSel    = selected[qi] === oi;
@@ -89,7 +89,7 @@ export default function AssessmentsPage() {
                             className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg border text-left text-sm transition-all"
                             style={{
                               borderColor: isRight ? "#10B981" : isWrong ? "#EF4444" : isSel ? "#5B7FFF" : "rgba(255,255,255,0.08)",
-                              background: isRight ? "rgba(16,185,129,0.12)" : isWrong ? "rgba(239,68,68,0.12)" : isSel ? "rgba(91,127,255,0.12)" : "#182035",
+                              background: isRight ? "rgba(16,185,129,0.12)" : isWrong ? "rgba(239,68,68,0.12)" : isSel ? "rgba(91,127,255,0.12)" : "#fafaf9",
                             }}
                           >
                             <div
@@ -101,7 +101,7 @@ export default function AssessmentsPage() {
                             >
                               {isSel ? "✓" : ""}
                             </div>
-                            <span className="text-slate-300 text-xs">
+                            <span className="text-[#4b5563] text-xs">
                               {String.fromCharCode(65 + oi)}. {opt}
                             </span>
                           </button>
