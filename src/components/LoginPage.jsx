@@ -72,6 +72,7 @@ export default function LoginPage() {
           <div className="text-5xl mb-3">🎓</div>
           <h1 className="font-display text-4xl font-black text-slate-100 tracking-tight">EduEdge</h1>
           <p className="text-slate-500 text-sm mt-2">AI-Powered Learning Platform for Indian Schools</p>
+          <p className="text-slate-400 text-xs mt-4 italic">"The Education ecosystem your student deserves"</p>
         </div>
 
         {/* Role cards */}
@@ -103,15 +104,6 @@ export default function LoginPage() {
               <p className="text-slate-500 text-xs">{r.desc}</p>
             </button>
           ))}
-        </div>
-
-        {/* Demo hint */}
-        <div className="rounded-xl border border-brand/20 bg-brand/5 p-3 text-center">
-          <p className="text-blue-400 text-xs leading-relaxed">
-            Demo credentials — Password: <span className="font-bold">demo123</span><br/>
-            Student: <span className="font-mono">arjun@demo.school</span><br/>
-            Teacher: <span className="font-mono">teacher@demo.school</span>
-          </p>
         </div>
       </div>
     </div>
@@ -151,7 +143,7 @@ export default function LoginPage() {
           </div>
 
           {/* Fields */}
-          <div className="space-y-4 mb-2">
+          <div className="space-y-4 mb-6">
             <div>
               <label className="block text-slate-400 text-xs mb-1.5 font-medium">Email Address</label>
               <input
@@ -159,7 +151,7 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder={DEMO[role].email}
+                placeholder="Enter your email"
                 required
                 autoFocus
               />
@@ -171,24 +163,11 @@ export default function LoginPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="Enter your password"
                 required
               />
             </div>
           </div>
-
-          {/* Quick fill hint */}
-          <p className="text-xs text-slate-600 mb-5">
-            Fill automatically:{" "}
-            <button
-              type="button"
-              className="underline transition-colors"
-              style={{ color: accentColor }}
-              onClick={() => fillDemo(role)}
-            >
-              use demo credentials
-            </button>
-          </p>
 
           {/* Error */}
           {error && (
