@@ -37,12 +37,16 @@ export default function TutorPage() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
-  // Reset conversation when language switches
+  // Switch language while preserving chat history
   const toggleLang = () => {
     const next = lang === "en" ? "hi" : "en";
     setLang(next);
-    setMessages([{ role: "assistant", content: next === "hi" ? WELCOME_HI : WELCOME_EN }]);
-    setSessionId(null);
+    
+    // Only update the welcome message if it's the only message in chat
+    if (messages.length === 1 && messages[0].role === "assistant") {
+      setMessages([{ role: "assistant", content: next === "hi" ? WELCOME_HI : WELCOME_EN }]);
+    }
+    // Keep existing session ID to maintain conversation context
   };
 
   const sendMessage = async () => {
@@ -120,7 +124,7 @@ export default function TutorPage() {
               </div>
             )}
             <div
-              className={`max-w-[72%] px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${
+              className={`max-w-[72%] px-4 py-3 text-[15px] leading-relaxed whitespace-pre-wrap ${
                 m.role === "user"
                   ? "bg-gradient-to-br from-brand to-violet-600 text-white rounded-2xl rounded-br-sm"
                   : "ee-card text-[#1c1c1a] rounded-2xl rounded-bl-sm"
@@ -164,7 +168,7 @@ export default function TutorPage() {
       <div className="px-6 py-4 border-t border-white/[0.07] bg-card flex gap-3 items-center flex-shrink-0">
         <input
           className="flex-1 bg-surface border border-white/10 rounded-xl px-4 py-3 text-sm
-                     text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-brand transition-colors"
+                     text-[#1c1c1a] placeholder:text-[#4b5563] focus:outline-none focus:border-brand transition-colors"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKey}
