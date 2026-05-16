@@ -3,10 +3,128 @@ import { useState, useRef, useEffect } from "react";
 import api from "@/lib/api";
 import { Spinner, TypingDots } from "@/components/ui";
 
-// ── OPTION C: Pre-baked Mermaid diagrams ─────────────────────────────────────
-// All 15 CBSE Class 10 process topics hand-written as valid Mermaid syntax.
-// Zero API calls. Renders in <50ms. Cannot fail on quota.
-// Each entry: { label, code, keywords[] }
+const IMAGE_LIBRARY = [
+  {
+    label: "Human Heart — Sectional View",
+    filename: "human-heart-schematic-sectional-view.png",
+    keywords: ["heart", "cardiac", "blood circulation", "circulatory", "double circulation", "atrium", "ventricle", "aorta", "pulmonary"],
+  },
+  {
+    label: "Acid-Base Reaction with Metals",
+    filename: "acid-base-react-with-metals.png",
+    keywords: ["acid react", "base react", "acid with metal", "base with metal", "hydrogen gas", "metal acid"],
+  },
+  {
+    label: "Concave and Convex Mirrors",
+    filename: "conave-convex-mirror.png",
+    keywords: ["concave mirror", "convex mirror", "spherical mirror", "mirror image", "focal point", "centre of curvature", "reflection of light"],
+  },
+  {
+    label: "Human Excretory System",
+    filename: "excretory-system.png",
+    keywords: ["excretion", "excretory system", "urine", "urinary", "bladder", "ureter", "urethra", "kidney function"],
+  },
+  {
+    label: "HCl Gas Preparation",
+    filename: "hcl-gas-preparation.png",
+    keywords: ["hcl gas", "hydrochloric acid preparation", "hydrogen chloride", "gas preparation", "nacl h2so4"],
+  },
+  {
+    label: "Human Alimentary Canal",
+    filename: "human-alimentary-canal.png",
+    keywords: ["alimentary canal", "digestive system", "digestion", "oesophagus", "stomach", "small intestine", "large intestine", "gut", "human digestion"],
+  },
+  {
+    label: "Human Respiratory System",
+    filename: "human-respiratory-system.png",
+    keywords: ["respiratory system", "lungs", "breathing", "trachea", "bronchi", "alveoli", "inhalation", "exhalation", "respiration"],
+  },
+  {
+    label: "Leaf Cross-Section",
+    filename: "leaf-cross-section.png",
+    keywords: ["leaf", "leaf cross section", "mesophyll", "epidermis", "chloroplast", "stomata", "photosynthesis", "leaf structure", "palisade"],
+  },
+  {
+    label: "Metal Carbonates & Hydrogencarbonates with Acids",
+    filename: "metal-carbonates-hydrocarbonates-react-with-metals.png",
+    keywords: ["carbonate", "hydrogencarbonate", "bicarbonate", "co2 gas", "effervescence", "carbonate react", "nahco3", "na2co3"],
+  },
+  {
+    label: "Nephron Structure",
+    filename: "nephron-structure.png",
+    keywords: ["nephron", "glomerulus", "bowman", "tubule", "kidney structure", "filtration", "reabsorption", "collecting duct", "loop of henle"],
+  },
+  {
+    label: "Stomatal Pore — Open and Closed",
+    filename: "open-close-stomatal-pore.png",
+    keywords: ["stomata", "stomatal pore", "guard cell", "transpiration", "open stoma", "closed stoma"],
+  },
+  {
+    label: "pH Scale",
+    filename: "ph-scale.png",
+    keywords: ["ph scale", "ph value", "acidic basic neutral", "ph of", "ph number", "ph indicator"],
+  },
+];
+ 
+// ── Image detection (same keyword-scan pattern as detectDiagram) ──────────────
+// Scans the user message + AI response for image keywords.
+// Returns the matching IMAGE_LIBRARY entry or null.
+// Deliberately does NOT return an image if a Mermaid diagram already matched —
+// avoids showing both for the same concept (caller handles that logic).
+function detectImage(userText, aiText = "") {
+  const combined = (userText + " " + aiText).toLowerCase();
+  for (const entry of IMAGE_LIBRARY) {
+    if (entry.keywords.some((kw) => combined.includes(kw))) {
+      return entry;
+    }
+  }
+  return null;
+}
+ 
+// ── NCERT Image component ─────────────────────────────────────────────────────
+function NCERTImage({ filename, label }) {
+  const [status, setStatus] = useState("loading"); // loading | ok | error
+ 
+  return (
+    <div className="my-3 rounded-xl border border-[#E2E0D8] bg-white overflow-hidden">
+      {/* Header bar — same style as MermaidDiagram */}
+      <div className="flex items-center justify-between px-3 py-2 border-b border-[#E2E0D8] bg-[#F5F0E8]">
+        <div className="flex items-center gap-2">
+          <span className="text-sm">🖼️</span>
+          <span className="text-[#1B2A4A] text-xs font-bold">{label}</span>
+        </div>
+        <span className="text-[10px] font-bold text-[#0F6E56] bg-[#E1F5EE] px-2 py-0.5 rounded-full border border-[#0F6E56]/20">
+          NCERT Class 10
+        </span>
+      </div>
+ 
+      {/* Image area */}
+      <div className="p-3 flex justify-center bg-white">
+        {status === "loading" && (
+          <div className="flex items-center gap-2 py-4">
+            <Spinner size={14} color="#0F6E56" />
+            <span className="text-[#4b5563] text-xs">Loading diagram…</span>
+          </div>
+        )}
+        {status === "error" && (
+          <p className="text-[#991b1b] text-xs py-4">
+            Diagram could not be loaded. The concept is explained in the text above.
+          </p>
+        )}
+        <img
+          src={`/ncert-images/${filename}`}
+          alt={label}
+          className={`max-w-full rounded-lg object-contain ${status !== "ok" ? "hidden" : ""}`}
+          style={{ maxHeight: 320 }}
+          onLoad={() => setStatus("ok")}
+          onError={() => setStatus("error")}
+        />
+      </div>
+    </div>
+  );
+}
+
+
 const DIAGRAM_LIBRARY = [
   {
     label: "Photosynthesis Process",
@@ -213,9 +331,7 @@ const DIAGRAM_LIBRARY = [
   },
 ];
 
-// ── Keyword detection (Option C core logic) ────────────────────────────────────
-// Scans BOTH the user's message and the AI's response text for topic keywords.
-// Returns the matching diagram entry or null if no match.
+
 function detectDiagram(userText, aiText = "") {
   const combined = (userText + " " + aiText).toLowerCase();
   for (const entry of DIAGRAM_LIBRARY) {
@@ -226,7 +342,7 @@ function detectDiagram(userText, aiText = "") {
   return null;
 }
 
-// ── Mermaid loader — CDN, loads once ─────────────────────────────────────────
+// ── Mermaid loader  ─────────────────────────────────────────
 let mermaidState = "idle"; // idle | loading | ready | error
 const mermaidQueue = [];
 
@@ -351,46 +467,47 @@ const SUGGESTIONS = [
 export default function TutorPage() {
   const [lang, setLang] = useState("en");
   const [messages, setMessages] = useState([
-    { role: "assistant", content: WELCOME_EN, diagram: null },
+    { role: "assistant", content: WELCOME_EN, diagram: null, ncertImage: null },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [sessionId, setSessionId] = useState(null);
   const bottomRef = useRef(null);
-
+ 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
-
+ 
   const toggleLang = () => {
     const next = lang === "en" ? "hi" : "en";
     setLang(next);
     if (messages.length === 1 && messages[0].role === "assistant") {
-      setMessages([{ role: "assistant", content: next === "hi" ? WELCOME_HI : WELCOME_EN, diagram: null }]);
+      setMessages([{ role: "assistant", content: next === "hi" ? WELCOME_HI : WELCOME_EN, diagram: null, ncertImage: null }]);
     }
   };
-
+ 
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
     const userText = input.trim();
     setInput("");
-
-    const userMsg = { role: "user", content: userText, diagram: null };
+ 
+    const userMsg = { role: "user", content: userText, diagram: null, ncertImage: null };
     const updated = [...messages, userMsg];
     setMessages(updated);
     setLoading(true);
-
+ 
     try {
-      // Send only role + content to the backend — diagram data stays frontend-only
       const apiMessages = updated.map((m) => ({ role: m.role, content: m.content }));
       const { data } = await api.post("/api/ai/chat", { messages: apiMessages, lang, sessionId });
-
-      // OPTION C: detect diagram from user question + AI response combined
+ 
+      // Detect Mermaid diagram first
       const diagram = detectDiagram(userText, data.message);
-
+      // Only detect NCERT image if no Mermaid diagram matched — avoids showing both for same concept
+      const ncertImage = diagram ? null : detectImage(userText, data.message);
+ 
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: data.message, diagram },
+        { role: "assistant", content: data.message, diagram, ncertImage },
       ]);
       if (data.sessionId && !sessionId) setSessionId(data.sessionId);
     } catch (err) {
@@ -398,16 +515,16 @@ export default function TutorPage() {
       const content = is429
         ? "The AI is getting a lot of requests right now. Please wait a few seconds and try again. ⏳"
         : "Connection error. Please check that the backend is running.";
-      setMessages((prev) => [...prev, { role: "assistant", content, diagram: null }]);
+      setMessages((prev) => [...prev, { role: "assistant", content, diagram: null, ncertImage: null }]);
     } finally {
       setLoading(false);
     }
   };
-
+ 
   const handleKey = (e) => {
     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }
   };
-
+ 
   return (
     <div className="flex flex-col h-screen">
       {/* Header */}
@@ -416,10 +533,10 @@ export default function TutorPage() {
           <h1 className="font-display text-lg font-extrabold text-slate-100">AI Tutor</h1>
           <div className="flex items-center gap-2 mt-1">
             <span className="pill pill-blue text-xs">CBSE Class 10</span>
-            <span className="text-slate-500 text-xs hidden sm:inline">Science · Socratic · Diagrams</span>
+            <span className="text-slate-500 text-xs hidden sm:inline">Science · Socratic · Diagrams + NCERT Images</span>
           </div>
         </div>
-
+ 
         {/* Language toggle */}
         <div className="flex items-center gap-2 sm:gap-3">
           <span className="text-sm font-semibold text-[#374151]">EN</span>
@@ -441,7 +558,7 @@ export default function TutorPage() {
           )}
         </div>
       </header>
-
+ 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto px-3 sm:px-6 py-3 sm:py-5 flex flex-col gap-4">
         {messages.map((m, i) => (
@@ -464,14 +581,18 @@ export default function TutorPage() {
                   {m.content}
                 </div>
               )}
-              {/* Diagram — assistant only, only when keyword matched */}
+              {/* Mermaid diagram — assistant only */}
               {m.role === "assistant" && m.diagram && (
                 <MermaidDiagram code={m.diagram.code} label={m.diagram.label} />
+              )}
+              {/* NCERT image — assistant only, only when no Mermaid diagram */}
+              {m.role === "assistant" && m.ncertImage && (
+                <NCERTImage filename={m.ncertImage.filename} label={m.ncertImage.label} />
               )}
             </div>
           </div>
         ))}
-
+ 
         {loading && (
           <div className="flex gap-3 items-end">
             <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand to-violet-600 flex items-center justify-center text-lg flex-shrink-0">
@@ -484,7 +605,7 @@ export default function TutorPage() {
         )}
         <div ref={bottomRef} />
       </div>
-
+ 
       {/* Suggestion chips — first message only */}
       {messages.length === 1 && (
         <div className="px-3 sm:px-6 pb-3 flex flex-wrap gap-2 flex-shrink-0">
@@ -500,7 +621,7 @@ export default function TutorPage() {
           ))}
         </div>
       )}
-
+ 
       {/* Input bar */}
       <div className="px-3 sm:px-6 py-3 sm:py-4 border-t border-white/[0.07] bg-card flex gap-2 sm:gap-3 items-center flex-shrink-0">
         <input
@@ -512,7 +633,7 @@ export default function TutorPage() {
           placeholder={
             lang === "hi"
               ? "अपना प्रश्न यहाँ लिखें…"
-              : "Ask anything — try 'show me photosynthesis' or 'explain reflex arc'…"
+              : "Ask anything — try 'explain digestion' or 'what is the pH scale'…"
           }
         />
         <button
@@ -528,3 +649,4 @@ export default function TutorPage() {
     </div>
   );
 }
+ 
